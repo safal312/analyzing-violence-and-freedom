@@ -1,0 +1,10 @@
+val demoRDD = sc.textFile("finalProject/data/fh_population")
+val Head = demoRDD.first()
+val dataRDD = demoRDD.filter(line => !line.equals(Head))
+dataRDD.map(line => ("line", 1)).reduceByKey(_ + _).collect().foreach(println)
+val splitRDD = dataRDD.map(line => line.split(','))
+splitRDD.map(data => (data(0), 1)).reduceByKey(_+_).collect().foreach(println)
+splitRDD.map(data => (data(1), 1)).reduceByKey(_+_).collect().foreach(println)
+splitRDD.map(data => (data(2), 1)).reduceByKey(_+_).sortBy(_._1).collect().foreach(println)
+splitRDD.map(data => (data(3), 1)).reduceByKey(_+_).sortBy(_._1).collect().foreach(println)
+
